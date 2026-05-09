@@ -2,6 +2,13 @@ import { Composition } from "remotion";
 import { CashClownsPromo } from "./CashClownsPromo";
 import { HelloWorld } from "./HelloWorld";
 
+const promoDefaults = {
+  brand: "CashClowns",
+  tagline: "The next generation of mouse jigglers is here.",
+  hype: "Download Free",
+  cta: "cashclowns.github.io/KeepAlive",
+};
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -12,12 +19,25 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
-        defaultProps={{
-          brand: "Cash Clowns",
-          tagline: "Funny Money. Serious Plays.",
-          hype: "Join the Show",
-          cta: "Follow @CashClowns",
-        }}
+        defaultProps={promoDefaults}
+      />
+      <Composition
+        id="CashClownsPromoVertical"
+        component={CashClownsPromo}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={promoDefaults}
+      />
+      <Composition
+        id="CashClownsPromoSquare"
+        component={CashClownsPromo}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={promoDefaults}
       />
       <Composition
         id="HelloWorld"
