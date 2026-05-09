@@ -1,3 +1,4 @@
+import React from "react";
 import {
   AbsoluteFill,
   Img,
@@ -9,6 +10,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { ClownLogoSvg } from "./ClownLogoSvg";
 
 const COLORS = {
   pink: "#FF1B6B",
@@ -77,27 +79,66 @@ const ClownLogo: React.FC<{
   rotate?: number;
   chromatic?: number;
 }> = ({ size = 600, glow = 0, rotate = 0, chromatic = 0 }) => {
+  const [pngFailed, setPngFailed] = React.useState(false);
   const src = staticFile("logo.png");
   const baseStyle: React.CSSProperties = {
     width: size,
     height: size,
     objectFit: "contain",
     position: "absolute",
+    inset: 0,
   };
+  const wrapperStyle: React.CSSProperties = {
+    position: "relative",
+    width: size,
+    height: size,
+    transform: `rotate(${rotate}deg)`,
+    filter: `drop-shadow(0 0 ${glow * 25}px ${COLORS.pink}) drop-shadow(0 0 ${glow * 50}px ${COLORS.cyan})`,
+  };
+
+  if (pngFailed) {
+    return (
+      <div style={wrapperStyle}>
+        {chromatic > 0 && (
+          <>
+            <div
+              style={{
+                ...baseStyle,
+                transform: `translateX(${-chromatic}px)`,
+                filter: "url(#redOnly)",
+                mixBlendMode: "screen",
+                opacity: 0.85,
+              }}
+            >
+              <ClownLogoSvg size={size} />
+            </div>
+            <div
+              style={{
+                ...baseStyle,
+                transform: `translateX(${chromatic}px)`,
+                filter: "url(#cyanOnly)",
+                mixBlendMode: "screen",
+                opacity: 0.85,
+              }}
+            >
+              <ClownLogoSvg size={size} />
+            </div>
+          </>
+        )}
+        <div style={baseStyle}>
+          <ClownLogoSvg size={size} />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div
-      style={{
-        position: "relative",
-        width: size,
-        height: size,
-        transform: `rotate(${rotate}deg)`,
-        filter: `drop-shadow(0 0 ${glow * 25}px ${COLORS.pink}) drop-shadow(0 0 ${glow * 50}px ${COLORS.cyan})`,
-      }}
-    >
+    <div style={wrapperStyle}>
       {chromatic > 0 && (
         <>
           <Img
             src={src}
+            onError={() => setPngFailed(true)}
             style={{
               ...baseStyle,
               transform: `translateX(${-chromatic}px)`,
@@ -108,6 +149,7 @@ const ClownLogo: React.FC<{
           />
           <Img
             src={src}
+            onError={() => setPngFailed(true)}
             style={{
               ...baseStyle,
               transform: `translateX(${chromatic}px)`,
@@ -118,7 +160,7 @@ const ClownLogo: React.FC<{
           />
         </>
       )}
-      <Img src={src} style={baseStyle} />
+      <Img src={src} onError={() => setPngFailed(true)} style={baseStyle} />
     </div>
   );
 };
