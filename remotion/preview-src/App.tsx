@@ -10,7 +10,7 @@ const FORMATS = {
 
 type FormatKey = keyof typeof FORMATS;
 
-const inputProps = {
+const baseInputProps = {
   brand: "ClownFlowAI",
   tagline: "The next generation of mouse jigglers is here.",
   hype: "Download Free",
@@ -22,7 +22,9 @@ const ACCENT = "#22D3EE";
 
 export const App: React.FC = () => {
   const [format, setFormat] = useState<FormatKey>("vertical");
+  const [audioOn, setAudioOn] = useState(false);
   const f = FORMATS[format];
+  const inputProps = { ...baseInputProps, enableAudio: audioOn };
 
   return (
     <div style={{ minHeight: "100vh", padding: "16px 12px 32px", maxWidth: 720, margin: "0 auto" }}>
@@ -46,6 +48,27 @@ export const App: React.FC = () => {
           Live preview · tap a format
         </p>
       </header>
+
+      <div style={{ marginBottom: 12 }}>
+        <button
+          type="button"
+          onClick={() => setAudioOn((v) => !v)}
+          style={{
+            width: "100%",
+            padding: "10px 12px",
+            background: audioOn ? ACCENT : "#1a1a22",
+            color: audioOn ? "#0A0A0F" : "white",
+            border: `2px solid ${audioOn ? ACCENT : "#2a2a35"}`,
+            borderRadius: 12,
+            fontWeight: 800,
+            fontSize: 14,
+            cursor: "pointer",
+            touchAction: "manipulation",
+          }}
+        >
+          {audioOn ? "Sound: ON" : "Sound: OFF (needs audio files)"}
+        </button>
+      </div>
 
       <div
         role="tablist"
