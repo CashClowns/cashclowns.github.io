@@ -5,6 +5,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   root: path.resolve(__dirname, "preview-src"),
+  publicDir: path.resolve(__dirname, "public"),
   base: "/preview/",
   build: {
     outDir: path.resolve(__dirname, "../preview"),
