@@ -11,7 +11,7 @@ const FORMATS = {
 type FormatKey = keyof typeof FORMATS;
 
 const inputProps = {
-  brand: "CashClowns",
+  brand: "ClownFlowAI",
   tagline: "The next generation of mouse jigglers is here.",
   hype: "Download Free",
   cta: "cashclowns.github.io/KeepAlive",
@@ -40,7 +40,7 @@ export const App: React.FC = () => {
             color: "transparent",
           }}
         >
-          CashClowns Promo
+          ClownFlowAI Promo
         </h1>
         <p style={{ margin: "4px 0 0", opacity: 0.7, fontSize: 14 }}>
           Live preview · tap a format

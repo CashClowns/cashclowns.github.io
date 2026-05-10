@@ -3,7 +3,7 @@ import { CashClownsPromo } from "./CashClownsPromo";
 import { HelloWorld } from "./HelloWorld";
 
 const promoDefaults = {
-  brand: "CashClowns",
+  brand: "ClownFlowAI",
   tagline: "The next generation of mouse jigglers is here.",
   hype: "Download Free",
   cta: "cashclowns.github.io/KeepAlive",
